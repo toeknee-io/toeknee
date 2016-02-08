@@ -1,0 +1,236 @@
+body {
+    padding-top: 50px;
+}
+.full-width {
+    min-width: 100%;
+    max-width: 100%;
+}
+.navbar-nav > li > a {
+    color: #337ab7 !important;
+    font-weight: bold;
+}
+.index-margin {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+fof-footer {
+    text-align: center;
+    min-width: 100%;
+    max-width: 100%;
+}
+footer {
+    bottom: 0px;
+    position: fixed;
+    min-width: 100%;
+}
+footer hr {
+    margin: 0;
+}
+footer p {
+    font-weight: bold;
+    margin-bottom: 0;
+}
+footer img {
+    max-height: 75px;
+    max-width: 150px;
+    margin-right: 10px;
+    margin-left: 10px;
+    padding: 10px;
+}
+footer img:hover {
+    border-width: 2px;
+    border-color: grey;
+    border-style: outset;
+}
+.playlist-cover,
+.playlist-info {
+    -webkit-backface-visibility: hidden;
+       -moz-backface-visibility: hidden;
+         -o-backface-visibility: hidden;
+            backface-visibility: hidden;
+            display: block;
+            margin: 0 auto;
+}
+.playlist-info {
+    min-height: 100%;
+    position: absolute;
+    overflow: auto;
+}
+.spotify-playlist-name {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    cursor: pointer;
+}
+.spotify-playlist-name h2 {
+    padding: 0 10% 0 10%;
+    max-height: 100%;
+    text-align: center;
+}
+.spotify-playlist-name a {
+    text-decoration: none;
+    color: white;
+}
+div.row > a[onclick="spotifyPlaylistFlip()"] {
+    cursor: pointer;
+}
+.carousel-icons {
+    z-index: 15;
+    text-align: center;
+    list-style: none;
+    margin: 0;
+}
+
+.carousel-icons li {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin: 1px;
+    text-indent: -999px;
+    cursor: pointer;
+    background-color: #000\9;
+    background-color: rgba(0,0,0,0);
+    border: 1px solid #5cb85c;
+    border-radius: 10px;
+}
+
+.row .carousel-icons li {
+    width: 40px;
+    height: 40px;
+    padding: 5px 0 5px 0;
+    cursor: pointer;
+    border: 1px solid #fff;
+    background-position: center;
+    border-width: 2px;
+    border-color: black;
+}
+
+#spotify-playlist-carousel .item {
+    -webkit-transition: -webkit-transform 1s;
+    -moz-transition: -moz-transform 1s;
+    -o-transition: -o-transform 1s;
+        transition: transform 1s;
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -o-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+    max-height: 640px;
+    max-width: 640px;
+}
+#spotify-playlist-carousel div img {
+    transform: rotateY(0deg);
+    top: 0;
+}
+#spotify-playlist-carousel div table {
+    transform: rotateY(180deg);
+    top: 0;
+}
+#spotify-playlist-carousel.flipped .item {
+    -webkit-transform: rotateY( 180deg );
+       -moz-transform: rotateY( 180deg );
+         -o-transform: rotateY( 180deg );
+            transform: rotateY( 180deg );
+}
+.spotify-follow-iframe {
+    margin-right: auto;
+    margin-left: auto;
+    width: 200px;
+}
+.spotify-follow-iframe iframe {
+    max-height: 56px;
+    width: 220px;
+    height: 56px;
+    overflow: hidden;
+    border:none;
+}
+.carousel-icons li:hover:not(.active) {
+    -webkit-transform: scale( 2, 2 );
+       -moz-transform: scale( 2, 2 );
+         -o-transform: scale( 2, 2 );
+            transform: scale( 2, 2 );
+    -webkit-transition: -webkit-transform 0.75s;
+    -moz-transition: -moz-transform 0.5s;
+    -o-transition: -o-transform 0.5s;
+        transition: transform 0.5s;
+}
+.carousel-icons .active {
+    -webkit-transform: scale( 1.25, 1.25 );
+       -moz-transform: scale( 1.25, 1.25 );
+         -o-transform: scale( 1.25, 1.25 );
+            transform: scale( 1.25, 1.25 );
+    -webkit-transition: -webkit-transform 0.75s;
+    -moz-transition: -moz-transform 0.5s;
+    -o-transition: -o-transform 0.5s;
+        transition: transform 0.5s;
+    border-color: #5cb85c !important;
+    margin: 0 10px 0 10px !important;
+}
+#spotify-playlist-carousel .move-in-left {
+    display: block;
+    animation-name: move-in-left;
+    animation-duration: 0.25s;
+    animation-timing-function: linear;
+}
+#spotify-playlist-carousel .move-in-right {
+    display: block;
+    animation-name: move-in-right;
+    animation-duration: 0.25s;
+    animation-timing-function: linear;
+}
+#spotify-playlist-carousel .move-out-left {
+    display: block;
+    animation-name: move-out-left;
+    animation-duration: 0.25s;
+    animation-timing-function: linear;
+}
+#spotify-playlist-carousel .move-out-right {
+    display: block;
+    animation-name: move-out-right;
+    animation-duration: 0.25s;
+    animation-timing-function: linear;
+}
+@keyframes move-out-left {
+    0% { left: 0%; }
+    50% { left: -100%; }
+    100% { left: -200%; }
+}
+@keyframes move-out-right {
+    0% { left: 0%; }
+    50% { left: 100%; }
+    100% { left: 200%; }
+}
+@keyframes move-in-left {
+    0% { left: -200%; }
+    50% { left: -100%; }
+    100% { left: 0%; }
+}
+@keyframes move-in-right {
+    0% { left: 2000%; }
+    50% { left: 100%; }
+    100% { left: 0%; }
+}
+/* Center BS Rows and Columns */
+.row-centered {
+    text-align:center;
+}
+.col-centered {
+    display:inline-block;
+    float:none;
+    /* reset the text-align */
+    text-align:left;
+    /* inline-block space fix */
+    margin-right:-4px;
+}
+.col-hug-left {
+    display:inline-block;
+    float:none;
+    text-align: left;
+    margin-left:-19px;
+    padding: 0;
+}
+.col-hug-right {
+    display:inline-block;
+    float:none;
+    text-align: right;
+    margin-right:-19px;
+    padding: 0;
+}

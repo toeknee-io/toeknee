@@ -1,0 +1,41 @@
+{
+  "restApiRoot": "/api",
+  "host": "0.0.0.0",
+  "url": "http://www.toekneefof.com",
+  "port": 3000,
+  "remoting": {
+    "context": {
+      "enableHttpContext": false
+    }
+  },
+  "spotify_cid": "86fc03d8f4a94b7194fdd28594ee633f",
+  "spotify_sec": "a33ee215af76446d86d50f35a59857bb",
+  "spotify_acb": "http://www.toekneefof.com/spotify/auth/callback",
+  "spotify_uid": "younglightning",
+  "initial": {
+    "./middleware/tracker": {
+    }
+  },
+  "rest": {
+    "normalizeHttpPath": false,
+    "xml": false
+  },
+  "files": {
+    "loopback#static": {
+      "params": "$!../client/views"
+    }
+  },
+  "json": {
+    "strict": false,
+    "limit": "100kb"
+  },
+  "urlencoded": {
+    "extended": true,
+    "limit": "100kb"
+  },
+  "cors": false,
+  "errorHandler": {
+    "disableStackTrace": false
+  },
+"legacyExplorer": false
+}

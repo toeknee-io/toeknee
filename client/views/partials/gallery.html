@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="slider-photos">
+    <!-- enumerate all photos -->
+    <img ng-repeat="photo in photos" class="slide-photos" ng-swipe-right="showPrev()" ng-swipe-left="showNext()" ng-show="isActive($index)" ng-src="{{photo.src}}"/>
+    <!-- prev / next controls -->
+    <a class="arrow-photos prev" ng-click="showPrev()"></a>
+    <a class="arrow-photos next" ng-click="showNext()"></a>
+    <ul class="nav-photos">
+      <li ng-repeat="photo in photos" ng-class="{'active':isActive($index)}">
+        <img ng-src="{{ photo.src }}" alt="{{ photo.desc }}" title="{{ photo.desc }}" ng-click="showPhoto($index);" />
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="container">
+  <form enctype="multipart/form-data">
+      <input id="file-input" class="file-loading" type="file" multiple accept="image/*">
+      <br>
+      <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+      <button type="reset" class="btn btn-default">Reset</button>
+  </form>
+</div>

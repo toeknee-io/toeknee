@@ -1,0 +1,26 @@
+routes:
+
+    home:
+      path: "/home"
+      templateUrl: "partials/home.html"
+      controller: "None"
+
+    chat:
+      path: "/chat"
+      templateUrl: "partials/chat.html"
+      controller: "ChatController"
+
+    gallery:
+      path: "/gallery"
+      templateUrl: "partials/gallery.html"
+      controller: "GalleryController"
+
+    gallery_album:
+      path: "/gallery/:galleryId"
+      templateUrl: "partials/gallery.html"
+      controller: "GalleryController"
+
+    spotify:
+      path: "/spotify"
+      templateUrl: "partials/spotify.html"
+      controller: "SpotifyController"

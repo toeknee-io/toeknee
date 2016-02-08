@@ -1,0 +1,333 @@
+fof-nav {
+    top: 0px;
+    position: fixed;
+    z-index: 1030;
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 15%;
+    max-height: 15%;
+}
+.navbar {
+    min-width: 100%;
+    min-height: 50px;
+
+}
+fof-footer {
+    text-align: center;
+    min-width: 100%;
+    max-width: 100%;
+}
+footer {
+    bottom: 0px;
+    position: fixed;
+    max-width: 100%;
+    min-width: 100%;
+}
+footer hr {
+    margin: 0;
+}
+footer p {
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+footer img {
+    max-height: 75px;
+    max-width: 150px;
+    margin-right: 10px;
+    margin-left: 10px;
+    padding: 10px;
+}
+footer img:hover {
+    border-width: 2px;
+    border-color: grey;
+    border-style: outset;
+}
+.overflow-auto {
+    overflow: auto;
+}
+.chat-input-message {
+  padding-right: 5%;
+}
+.gallery-ul {
+  padding:0 0 0 0;
+  margin:0 0 0 0;
+}
+.gallery-li {
+  list-style:none;
+  margin-bottom:25px;
+}
+.gallery-img {
+  cursor: pointer;
+}
+.arrow-photos {
+    cursor: pointer;
+    display: block;
+    height: 64px;
+    margin-top: -35px;
+    outline: medium none;
+    position: absolute;
+    top: 50%;
+    width: 64px;
+    z-index: 5;
+}
+.arrow-photos.prev {
+    background-image: url("../img/next.png");
+    left: 20px;
+    opacity: 0.2;
+    transition: all 0.2s linear 0s;
+}
+.arrow-photos.next {
+    background-image: url("../img/next.png");
+    opacity: 0.2;
+    right: 20px;
+    transition: all 0.2s linear 0s;
+}
+.arrow-photos.prev:hover{
+    opacity:1;
+}
+.arrow-photos.next:hover{
+    opacity:1;
+}
+.nav-photos {
+    bottom: -4px;
+    display: block;
+    height: 48px;
+    left: 0;
+    margin: 0 auto;
+    padding: 1em 0 0.8em;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    height: auto;
+    width: auto;
+    z-index: 5;
+}
+.nav-photos li {
+    border: 5px solid #AAAAAA;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-block;
+    height: 30px;
+    margin: 0 8px;
+    position: relative;
+    width: 50px;
+}
+.nav-photos li.active {
+    border: 5px solid #FFFFFF;
+}
+.nav-photos li img {
+    width: 100%;
+}
+.slider-photos {
+    border: 15px solid #FFFFFF;
+    border-radius: 5px;
+    height: 500px;
+    max-width: 100%;
+    position: relative;
+    left: 0;
+
+    -webkit-perspective: 1000px;
+    -moz-perspective: 1000px;
+    -ms-perspective: 1000px;
+    -o-perspective: 1000px;
+    perspective: 1000px;
+
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -ms-transform-style: preserve-3d;
+    -o-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+}
+.slide-photos {
+    position: absolute;
+    max-width: 100%;
+    max-height: 100%;
+}
+.slide-photos.ng-hide-add {
+    opacity:1;
+
+    -webkit-transition:1s linear all;
+    -moz-transition:1s linear all;
+    -o-transition:1s linear all;
+    transition:1s linear all;
+
+    -webkit-transform: rotateX(50deg) rotateY(30deg);
+    -moz-transform: rotateX(50deg) rotateY(30deg);
+    -ms-transform: rotateX(50deg) rotateY(30deg);
+    -o-transform: rotateX(50deg) rotateY(30deg);
+    transform: rotateX(50deg) rotateY(30deg);
+
+    -webkit-transform-origin: right top 0;
+    -moz-transform-origin: right top 0;
+    -ms-transform-origin: right top 0;
+    -o-transform-origin: right top 0;
+    transform-origin: right top 0;
+
+}
+.slide-photos.ng-hide-add.ng-hide-add-active {
+    opacity:0;
+}
+.slide-photos.ng-hide-remove {
+    -webkit-transition:1s linear all;
+    -moz-transition:1s linear all;
+    -o-transition:1s linear all;
+    transition:1s linear all;
+
+    display:block!important;
+    opacity:0;
+}
+.slide-photos, .slide-photos.ng-hide-remove.ng-hide-remove-active {
+    opacity:1;
+}
+.modal-body {
+    word-wrap: break-word;
+}
+.playlist-controls {
+    position: absolute;
+    left: 25%;
+    right: 25%;
+}
+.playlist-controls > div > ol {
+    margin: 0 auto;
+    height: 100%;
+    width: 100%;
+}
+.playlist-controls > div > a.left {
+    left: 0px;
+    height: 100%;
+    width: 100%;
+}
+.playlist-controls > div > a.right {
+    height: 100%;
+    width: 100%;
+}
+.playlist-name {
+    max-width: 100%;
+    text-align: center;
+    width: 100%;
+    padding-left: 0 !important;
+    margin: 0 !important;
+    cursor: default;
+}
+.playlist-name a {
+    cursor: pointer;
+}
+.playlist-cover,
+.playlist-info {
+    -webkit-backface-visibility: hidden;
+       -moz-backface-visibility: hidden;
+         -o-backface-visibility: hidden;
+            backface-visibility: hidden;
+}
+#spotify-playlist-carousel .item {
+    -webkit-transition: -webkit-transform 1s;
+    -moz-transition: -moz-transform 1s;
+    -o-transition: -o-transform 1s;
+        transition: transform 1s;
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -o-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+    max-height: 640px;
+    max-width: 640px;
+}
+#spotify-playlist-carousel div img {
+    transform: rotateY(0deg);
+    top: 0;
+}
+#spotify-playlist-carousel div table {
+    transform: rotateY(180deg);
+    top: 0;
+    margin: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-width: 640px;
+}
+#spotify-playlist-carousel.flipped .item {
+    -webkit-transform: rotateY( 180deg );
+       -moz-transform: rotateY( 180deg );
+         -o-transform: rotateY( 180deg );
+            transform: rotateY( 180deg );
+}
+#spotify-playlist-carousel .item .slide {
+    -webkit-transform: translateX(-100%);
+       -moz-transform: translateX(-100%);
+         -o-transform: translateX(-100%);
+            transform: translateX(-100%);
+}
+.spotify-follow-iframe {
+    margin-right: auto;
+    margin-left: auto;
+    width: 200px;
+}
+.spotify-follow-iframe iframe {
+    max-height: 56px;
+    width: 220px;
+    height: 56px;
+    overflow: hidden;
+    border:none;
+}
+.view-animate {
+    padding: 10px;
+}
+.view-animate.ng-enter, .view-animate.ng-leave {
+    transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1.5s;
+    display:block;
+    width:100%;
+    border-left:1px solid black;
+    position:absolute;
+    top:25px;
+    left:0;
+    right:0;
+    bottom:0;
+    max-width: 100%;
+    max-height: 100%;
+    height: 100%;
+}
+.view-animate.ng-enter {
+  left:100%;
+}
+.view-animate.ng-enter.ng-enter-active {
+  left:0;
+}
+.view-animate.ng-leave.ng-leave-active {
+  left:-100%;
+}
+@keyframes appear {
+  from {
+    left: 1000px;
+  }
+  to {
+    left: 0;
+  }
+}
+@keyframes disappear {
+    from {
+    right: 0;
+    }
+    to {
+    right: 1000px;
+    }
+}
+#spotify-playlist-carousel div.item.active-add-active {
+    left: 1000px;
+    animation: 2s appear;
+    animation-delay: 1.7s;
+}
+#spotify-playlist-carousel div.item.active-remove {
+    right: 0;
+    display: block;
+    animation: 2s disappear;
+}
+
+/* PORTED FROM BOOTSTRAP-FOF */
+.row .carousel-indicators li{
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  cursor: pointer;
+  border: 1px solid #fff;
+  background-position: center;
+  border-width: 2px;
+  border-color: black;
+}

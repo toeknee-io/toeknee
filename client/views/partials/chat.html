@@ -1,0 +1,42 @@
+<div>
+  <h1>Chats</h1>
+</div>
+<div class="row">
+  <div class="col-md-2">
+    <ul class="nav nav-list well">
+      <li class="nav-header">Current Cats</li>
+      <li ng-repeat="bro in roster" ng-bind="bro">
+      </li>
+    </ul>
+  </div>
+  <div class="col-md-10">
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th class="col-md-2">Cat</th>
+          <th class="col-md-8">Meowsings</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="msg in messages">
+          <td class="col-md-2" ng-bind="msg.name"></td>
+          <td class="col-md-8" ng-bind="msg.text"></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="row controls">
+      <form ng-submit="send()">
+        <div class="col-md-2">
+          <input type="text" class="input-block-level" ng-model="name" ng-change="setName()" placeholder="Your Name">
+        </div>
+        <div class="col-md-10">
+          <div class="col-md-11">
+            <input type="text" class="col-md-12" ng-model="text" placeholder="Message">
+          </div>
+          <input type="submit" class="col-md-1 btn btn-primary" value="Send" ng-disabled="!text">
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<script src="socket.io/socket.io.js"></script>
