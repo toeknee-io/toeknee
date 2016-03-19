@@ -2,7 +2,7 @@
   "restApiRoot": "/api",
   "host": "0.0.0.0",
   "url": "http://www.toekneefof.com",
-  "port": 3000,
+  "port": 8080,
   "remoting": {
     "context": {
       "enableHttpContext": false

@@ -1,0 +1,13 @@
+<table class="table table-striped table-hover table-bordered playlist-info">
+  <caption class="playlist-name"><a ng-href="{{activePlaylist.uri}}"><h2>{{activePlaylist.name}}</h2></a></caption>
+  <thead>
+    <th>Track</th>
+    <th>Artist</th>
+    <th>Album</th>
+  </thead>
+  <tr ng-repeat="track in activePlaylist.plTracks">
+    <td class="col-md-5"><a ng-href="{{track.uri}}"><p>{{track.name}}</p></a></td>
+    <td class="col-md-2"><a ng-repeat="artist in track.artists" ng-href="{{artist.uri}}"><p>{{artist.name}}</p></a></td>
+    <td class="col-md-5"><a ng-href="{{track.album.uri}}"><p>{{track.album.name}}</p></a></td>
+  </tr>
+</table>

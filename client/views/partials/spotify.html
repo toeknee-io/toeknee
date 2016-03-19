@@ -1,62 +1,106 @@
-<div class="container">
+<div id="spotify-loading" class="row-centered" ng-show="loading">
+  <img src="/img/spotify-loading.gif"/>
+  <h1 class="spotify-green"> Getting Playlists For {{ userId }} </h1>
+</div>
+<div class="container" ng-show="userPlaylists.length > 0">
   <div class="row row-centered">
     <div class="carousel">
       <!-- Wrapper for slides -->
       <div id="spotify-playlist-carousel" class="carousel-inner" role="listbox">
-        <div ng-repeat="playlist in myPlaylists" id="playlist-cover-{{$index}}" ng-class="[ 'item', 'center-block', { 'active': $index == activeIndex } ]">
-            <img class="img-responsive img-rounded playlist-cover" width="500" ng-src="{{ playlist.images[0].url || playlist.images[2].url }}" alt="{{playlist.name}}"/>
-            <table class="table table-responsive table-striped table-hover table-bordered table-condensed playlist-info">
-              <thead>
-                <th class="col-md-6">Track</th>
-                <th class="col-md-3">Artist</th>
-                <th class="col-md-3">Album</th>
-              </thead>
-              <tbody>
-                <tr ng-repeat="track in playlist.plTracks">
-                  <td class="col-md-6"><a ng-href="{{track.uri}}"><p>{{track.name}}</p></a></td>
-                  <td class="col-md-3"><a ng-repeat="artist in track.artists" ng-href="{{artist.uri || '#/spotify'}}"><p>{{artist.name}}</p></a></td>
-                  <td class="col-md-3"><a ng-href="{{track.album.uri}}"><p>{{track.album.name}}</p></a></td>
-                </tr>
-              </tbody>
-            </table>
+        <div ng-repeat="playlist in userPlaylists" id="playlist-cover-{{$index}}" ng-class="[ 'item', 'center-block', { 'active': $index == activeIndex } ]">
+          <img class="img-responsive img-rounded playlist-cover" width="500" ng-src="{{ playlist.images[0].url || playlist.images[2].url }}" alt="{{playlist.name}}"/>
+          <table class="table table-responsive table-bordered table-hover playlist-info bg-green" ng-show="playlist.tracks && playlist.tracks.length > 0">
+            <thead>
+              <th class="spotify-track-table-art-cell"></th>
+              <th class="spotify-track-table-info-cell">Track</th>
+              <th class="spotify-track-table-info-cell">Artist</th>
+              <th class="spotify-track-table-info-cell">Album</th>
+            </thead>
+            <tbody>
+              <tr ng-repeat="track in playlist.tracks">
+                <td class="spotify-track-table-art-cell">
+                  <a ng-href="{{track.album.uri}}">
+                    <img ng-src="{{ track.album.images[0].url }}" width="70" height="70"/>
+                  </a>
+                </td>
+                <td class="spotify-track-table-info-cell">
+                  <a ng-href="{{track.external_urls.spotify}}">
+                    {{track.name}}
+                  </a>
+                </td>
+                <td class="spotify-track-table-info-cell">
+                  <a ng-repeat="artist in track.artists" ng-href="{{ artist.uri || '#/spotify' }}">
+                    {{artist.name}}
+                  </a>
+                </td>
+                <td class="spotify-track-table-info-cell">
+                  <a ng-href="{{track.album.uri}}">
+                    {{track.album.name}}
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
   </div>
-  <div id="playlist-controls">
+  <div id="playlist-controls" ng-cloak>
     <div class="row row-centered spotify-playlist-name">
       <div class="col-md-8 col-centered">
         <h2><span class="label label-success"><a ng-href="{{ activePlaylist.uri }}">{{activePlaylist.name}}</a></span></h2>
       </div>
     </div>
     <div class="row row-centered">
-      <a onclick="spotifyPlaylistFlip()">
-        <h4>Flip</h4>
+      <a ng-click="flipCarouselItem(flipLabel)">
+        <h4>{{ flipLabel }}</h4>
       </a></div>
-    <!-- Indicators -->
-    <div class="row">
-      <div class="col-md-2 col-hug-right">
-        <button type="button" class="btn btn-success" ng-click="setCarousel(activeIndex - 1)">
-          <span class="glyphicon glyphicon-backward"></span>
-        </button>
+      <!-- Indicators -->
+      <div class="row">
+        <div class="col-md-2 col-hug-right">
+          <button type="button" class="btn btn-success" ng-click="setCarousel(activeIndex - 1)">
+            <span class="glyphicon glyphicon-backward"></span>
+          </button>
+        </div>
+        <div class="col-md-8 col-centered">
+          <ol class="carousel-icons">
+            <li ng-repeat="pl in userPlaylists" ng-class="{'active': pl == activePlaylist }" ng-style="{ 'background-image': 'url({{pl.images[0].url || pl.images[2].url}})', 'background-size': '50px 50px' }" ng-click="setCarousel($index)">
+            </li>
+          </ol>
+        </div>
+        <div class="col-md-2 col-hug-left">
+          <button type="button full-width" class="btn btn-success" ng-click="setCarousel(activeIndex + 1)">
+            <span class="glyphicon glyphicon-forward"></span>
+          </button>
+        </div>
       </div>
-      <div class="col-md-8 col-centered">
-        <ol class="carousel-icons">
-          <li ng-repeat="pl in myPlaylists" ng-class="{'active': pl == activePlaylist }" ng-style="{ 'background-image': 'url({{pl.images[0].url || pl.images[2].url}})', 'background-size': '50px 50px' }" ng-click="setCarousel($index)">
-          </li>
-        </ol>
-      </div>
-      <div class="col-md-2 col-hug-left">
-        <button type="button full-width" class="btn btn-success" ng-click="setCarousel(activeIndex + 1)">
-          <span class="glyphicon glyphicon-forward"></span>
-        </button>
-      </div>
-      <!-- Left and right controls -->
     </div>
-  </div>
   <!--
   <div class="spotify-follow-iframe">
     <iframe src="https://embed.spotify.com/follow/1/?uri=spotify:user:younglightning&size=detail&theme=light" allowtransparency="true"></iframe>
   </div>-->
 </div>
-<script src="/js/lib/fof-spotify.js"></script>
+<br/>
+<br/>
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <form role="form" ng-submit="setUserPlaylists()" >
+        <div class="form-group">
+          <input type="text" class="form-control input-md" ng-model="userId" placeholder="Spotify User ID"/>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-default">Set!</button>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <input type="text" class="form-control input-md" ng-model="addedUserId" placeholder="Frand's User ID"/>
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-default" ng-click="addAdditionalUser()">Add!</button>
+      </div>
+    </div>
+  </div>
+</div>

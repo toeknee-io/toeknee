@@ -1,7 +1,7 @@
 <div class="jumbotron">
   <div class="container">
     <h1>Herro, thurr!</h1>
-    <p>A better waay to get even with my memoraay.</p>
+    <p>I don't know what I'm doing.</p>
     <p><a class="btn btn-primary btn-lg" href="https://www.youtube.com/watch?v=pOI8InUnfE8" target="_blank" role="button">Learn more &raquo;</a></p>
   </div>
 </div>
@@ -25,3 +25,10 @@
     </div>
   </div>
 </div>
+<script>
+$.ajax('/routes', {
+  success: function() {
+    window.console.log(arguments[0]);
+  }
+});
+</script>

@@ -42,19 +42,44 @@ footer img:hover {
     border-color: grey;
     border-style: outset;
 }
+a[onclick|="flipCarouselItem"]:hover {
+    cursor: pointer;
+}
+.bg-black {
+    background-color: #1a1a1a !important;
+}
+.spotify-green {
+    color: #5cb85c !important;
+}
+.spotify-nav,
+.spotify-nav .navbar-nav > li > a,
+.spotify-nav .navbar-nav > li > ul,
+.spotify-nav .navbar-nav > li > ul > li > a {
+    background-color: #1a1a1a !important;
+    color: #5cb85c !important;
+    border-bottom-color: #5cb85c !important;
+}
 .playlist-cover,
 .playlist-info {
+    display: block;
+    margin: 0 auto;
     -webkit-backface-visibility: hidden;
        -moz-backface-visibility: hidden;
          -o-backface-visibility: hidden;
             backface-visibility: hidden;
-            display: block;
-            margin: 0 auto;
 }
 .playlist-info {
-    min-height: 100%;
-    position: absolute;
-    overflow: auto;
+    overflow-y: scroll;
+}
+.playlist-cover {
+    border: 2px solid #5cb85c !important;
+}
+#playlist-controls div a {
+    cursor: pointer;
+     -webkit-transform: rotateY(0deg);
+        -moz-transform: rotateY(0deg);
+          -o-transform: rotateY(0deg);
+             transform: rotateY(0deg);
 }
 .spotify-playlist-name {
     margin-top: 15px;
@@ -69,9 +94,6 @@ footer img:hover {
 .spotify-playlist-name a {
     text-decoration: none;
     color: white;
-}
-div.row > a[onclick="spotifyPlaylistFlip()"] {
-    cursor: pointer;
 }
 .carousel-icons {
     z-index: 15;
@@ -92,7 +114,6 @@ div.row > a[onclick="spotifyPlaylistFlip()"] {
     border: 1px solid #5cb85c;
     border-radius: 10px;
 }
-
 .row .carousel-icons li {
     width: 40px;
     height: 40px;
@@ -103,7 +124,6 @@ div.row > a[onclick="spotifyPlaylistFlip()"] {
     border-width: 2px;
     border-color: black;
 }
-
 #spotify-playlist-carousel .item {
     -webkit-transition: -webkit-transform 1s;
     -moz-transition: -moz-transform 1s;
@@ -113,27 +133,57 @@ div.row > a[onclick="spotifyPlaylistFlip()"] {
     -moz-transform-style: preserve-3d;
     -o-transform-style: preserve-3d;
         transform-style: preserve-3d;
+    max-width: 100%;
+}
+#playlist-cover-* {
+     -webkit-transform: rotateY(0deg) /*translateZ(500px)*/;
+        -moz-transform: rotateY(0deg) /*translateZ(500px)*/;
+          -o-transform: rotateY(0deg) /*translateZ(500px)*/;
+             transform: rotateY(0deg) /*translateZ(500px)*/;
     max-height: 640px;
     max-width: 640px;
-}
-#spotify-playlist-carousel div img {
-    transform: rotateY(0deg);
-    top: 0;
+    overflow: hidden;
 }
 #spotify-playlist-carousel div table {
-    transform: rotateY(180deg);
+    height: 100%;
+    position: absolute;
+     -webkit-transform: rotateY(180deg) /*translateZ(1px)*/;
+        -moz-transform: rotateY(180deg) /*translateZ(1px)*/;
+          -o-transform: rotateY(180deg) /*translateZ(1px)*/;
+             transform: rotateY(180deg) /*translateZ(1px)*/;
     top: 0;
 }
-#spotify-playlist-carousel.flipped .item {
-    -webkit-transform: rotateY( 180deg );
-       -moz-transform: rotateY( 180deg );
-         -o-transform: rotateY( 180deg );
-            transform: rotateY( 180deg );
+.spotify-track-table-info-cell,
+.spotify-track-table-art-cell {
+    vertical-align: middle !important;
+    color: #d9d9d9;
+    background-color: #262626;
+}
+.spotify-track-table-info-cell {
+    text-align: center;
+    width: 35%;
+}
+.spotify-track-table-art-cell {
+    width: 5%;
+}
+#spotify-playlist-carousel div table th,
+#spotify-playlist-carousel div table td {
+    border-style: inset none inset none;
+}
+#spotify-playlist-carousel div table th {
+    font-size: 16px;
+    color: #b3b3b3;
+}
+#spotify-playlist-carousel.flipped .item,
+#playlist-controls div a.flipped {
+    -webkit-transform: rotateY(180deg) /*translateZ(1px)*/;
+       -moz-transform: rotateY(180deg) /*translateZ(1px)*/;
+         -o-transform: rotateY(180deg) /*translateZ(1px)*/;
+            transform: rotateY(180deg) /*translateZ(1px)*/;
 }
 .spotify-follow-iframe {
     margin-right: auto;
     margin-left: auto;
-    width: 200px;
 }
 .spotify-follow-iframe iframe {
     max-height: 56px;
@@ -233,4 +283,8 @@ div.row > a[onclick="spotifyPlaylistFlip()"] {
     text-align: right;
     margin-right:-19px;
     padding: 0;
+}
+.no-padding {
+   padding: 0 !important;
+   margin: 0 !important;
 }

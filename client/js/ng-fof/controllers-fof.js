@@ -17,11 +17,9 @@
       });
       socket.on('message', function(msg) {
         $scope.messages.push(msg);
-        $scope.$apply();
       });
       socket.on('roster', function(names) {
         $scope.roster = names;
-        $scope.$apply();
       });
       $scope.send = function() {
         window.console.log('Sending message:', $scope.text);
@@ -94,57 +92,139 @@
   ]);
 
   fofApp.controller("SpotifyController", [
-    "$scope", "$http", "$animate", "$interval", function($scope, $http, $animate, $interval) {
-      var ref;
-      $animate.enabled(true);
-      window.console.log("Angular animations are enabled: " + ($animate.enabled()));
-      ref = [[], 0, "cover", false], $scope.myPlaylists = ref[0], $scope.activeIndex = ref[1], $scope.swap = ref[2], $scope.processing = ref[3];
+    "$scope", "$http", "$interval", "$routeParams", function($scope, $http, $interval, $routeParams) {
+      var VIEW_PLAYLIST_COVER_LABEL, VIEW_PLAYLIST_TRACKS_LABEL, ref;
+      VIEW_PLAYLIST_TRACKS_LABEL = "View Playlist Tracks";
+      VIEW_PLAYLIST_COVER_LABEL = "View Playlist Cover";
+      ref = [$routeParams.userId || "younglightning", [], [], [], 0, VIEW_PLAYLIST_TRACKS_LABEL], $scope.userId = ref[0], $scope.userPlaylists = ref[1], $scope.additionalUserIds = ref[2], $scope.additionalPlaylists = ref[3], $scope.activeIndex = ref[4], $scope.flipLabel = ref[5];
       $scope.prevIndex = $scope.activeIndex;
-      $http.get("/spotify/me/playlists").then(function(res) {
-        var j, len, playlist, ref1;
-        ref1 = res.data;
-        for (j = 0, len = ref1.length; j < len; j++) {
-          playlist = ref1[j];
-          $scope.myPlaylists.push(playlist);
+      $scope.setUserPlaylists = function(userId) {
+        $scope.userPlaylists = [];
+        $scope.activeIndex = 0;
+        $scope.loading = true;
+        return $http.get("/spotify/" + (userId || $scope.userId) + "/playlists").then(function(res) {
+          var j, len, playlist, ref1;
+          ref1 = res.data;
+          for (j = 0, len = ref1.length; j < len; j++) {
+            playlist = ref1[j];
+            $scope.userPlaylists.push(playlist);
+          }
+          $scope.activePlaylist = $scope.userPlaylists[$scope.activeIndex];
+          $scope.loading = false;
+          $scope.getPlaylistsTracks($scope.userPlaylists);
+          return window.console.log("Retrieved User's Playlists: " + $scope.userPlaylists.length);
+        });
+      };
+      $scope.getUserPlaylists = function(userId) {
+        if ($scope.userPlaylists.size > 0) {
+          return;
         }
-        return $scope.activePlaylist = $scope.myPlaylists[$scope.activeIndex];
-      });
+        $scope.loading = true;
+        return $http.get("/spotify/" + (userId || $scope.userId) + "/playlists").then(function(res) {
+          var j, len, playlist, ref1;
+          ref1 = res.data;
+          for (j = 0, len = ref1.length; j < len; j++) {
+            playlist = ref1[j];
+            $scope.userPlaylists.push(playlist);
+          }
+          $scope.activePlaylist = $scope.userPlaylists[$scope.activeIndex];
+          $scope.loading = false;
+          window.console.log("Retrieved User's Playlists: " + $scope.userPlaylists.length);
+          return $scope.getPlaylistsTracks($scope.userPlaylists);
+        });
+      };
+      $scope.getPlaylistsTracks = function(playlists) {
+        var j, len, playlist, results;
+        results = [];
+        for (j = 0, len = playlists.length; j < len; j++) {
+          playlist = playlists[j];
+          results.push($scope.getPlaylistTracks(playlist));
+        }
+        return results;
+      };
+      $scope.getPlaylistTracks = function(playlist) {
+        if (!playlist.tracks || !Array.isArray(playlist.tracks)) {
+          playlist.tracks = [];
+        }
+        return $http.get("/spotify/" + playlist.owner.id + "/playlists/" + playlist.id + "/tracks?offset=" + (playlist.offset || 0)).then(function(res) {
+          var j, len, ref1, track;
+          playlist.totalTracks = res.data.totalTracks;
+          ref1 = res.data.tracks;
+          for (j = 0, len = ref1.length; j < len; j++) {
+            track = ref1[j];
+            playlist.tracks.push(track);
+          }
+          playlist.offset = res.data.offset || playlist.tracks.length;
+          if (playlist.tracks.length < playlist.totalTracks) {
+            return $scope.getPlaylistTracks(playlist);
+          }
+        });
+      };
+      $scope.addAdditionalUser = function() {
+        if ($scope.additionalUserIds[$scope.addedUserId]) {
+          return;
+        }
+        $scope.additionalUserIds.push($scope.addedUserId);
+        return $scope.addUserPlaylists($scope.addedUserId);
+      };
+      $scope.addUserPlaylists = function(userId) {
+        return $http.get("/spotify/" + userId + "/playlists").then(function(res) {
+          var j, k, len, len1, playlist, ref1, ref2;
+          ref1 = res.data;
+          for (j = 0, len = ref1.length; j < len; j++) {
+            playlist = ref1[j];
+            $scope.additionalPlaylists.push(playlist);
+          }
+          ref2 = $scope.additionalPlaylists;
+          for (k = 0, len1 = ref2.length; k < len1; k++) {
+            playlist = ref2[k];
+            $scope.userPlaylists.push(playlist);
+          }
+          $scope.loading = false;
+          window.console.log("Added User's Playlists: " + $scope.additionalPlaylists.length);
+          return $scope.getPlaylistsTracks($scope.additionalPlaylists);
+        });
+      };
       $scope.setCarousel = function(i) {
         var moveIn, moveOut;
-        if (!$scope.processing) {
-          $scope.processing = true;
-          if (i > $scope.activeIndex) {
-            moveOut = 'move-out-right';
-            moveIn = 'move-in-left';
-          } else {
-            moveOut = 'move-out-left';
-            moveIn = 'move-in-right';
-          }
-          if (i < 0) {
-            i = $scope.myPlaylists.length - 1;
-          } else if (i >= $scope.myPlaylists.length) {
-            i = 0;
-          }
-          $scope.activePlaylist = $scope.myPlaylists[i];
-          $("#playlist-cover-" + $scope.activeIndex).addClass(moveOut);
-          $("#playlist-cover-" + $scope.activeIndex).removeClass('active');
+        if ($scope.processing) {
+          return;
+        }
+        $scope.processing = true;
+        if (i < 0) {
+          i = $scope.userPlaylists.length - 1;
+        } else if (i >= $scope.userPlaylists.length) {
+          i = 0;
+        }
+        if (i > $scope.activeIndex) {
+          moveOut = 'move-out-right';
+          moveIn = 'move-in-left';
+        } else {
+          moveOut = 'move-out-left';
+          moveIn = 'move-in-right';
+        }
+        $("#playlist-cover-" + $scope.activeIndex).addClass(moveOut);
+        $("#playlist-cover-" + $scope.activeIndex).removeClass("active");
+        $scope.activePlaylist = $scope.userPlaylists[i];
+        return $interval(function() {
+          $("#playlist-cover-" + $scope.activeIndex).removeClass(moveOut);
+          $("#playlist-cover-" + i).addClass(moveIn);
           return $interval(function() {
-            $("#playlist-cover-" + $scope.activeIndex).removeClass(moveOut);
-            $("#playlist-cover-" + i).addClass(moveIn);
-            return $interval(function() {
-              var ref1;
-              $("#playlist-cover-" + i).removeClass(moveIn);
-              return ref1 = [$scope.activeIndex, i, false], $scope.prevIndex = ref1[0], $scope.activeIndex = ref1[1], $scope.processing = ref1[2], ref1;
-            }, 260, 1);
-          }, 250, 1);
+            var ref1;
+            $("#playlist-cover-" + i).removeClass(moveIn);
+            return ref1 = [$scope.activeIndex, i, false], $scope.prevIndex = ref1[0], $scope.activeIndex = ref1[1], $scope.processing = ref1[2], ref1;
+          }, 260, 1);
+        }, 250, 1);
+      };
+      $scope.flipCarouselItem = function(flipLabel) {
+        $('#spotify-playlist-carousel, #playlist-controls div a').toggleClass("flipped");
+        if (flipLabel === VIEW_PLAYLIST_TRACKS_LABEL) {
+          $scope.flipLabel = VIEW_PLAYLIST_COVER_LABEL;
+        } else {
+          $scope.flipLabel = VIEW_PLAYLIST_TRACKS_LABEL;
         }
       };
-      $animate.on("addClass", angular.element(document).find("#spotify-playlist-carousel"), function(elm, phase) {
-        return window.console.log("Class add detected");
-      });
-      return $animate.on("removeClass", angular.element(document).find("#spotify-playlist-carousel"), function(elm, phase) {
-        return window.console.log("Class removal detected");
-      });
+      return $scope.getUserPlaylists($scope.userId);
     }
   ]);
 

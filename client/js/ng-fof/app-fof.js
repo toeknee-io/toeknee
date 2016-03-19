@@ -10,7 +10,7 @@
       ref = [{}, new XMLHttpRequest], yamlRoutes = ref[0], routeReq = ref[1];
       routeReq.open('GET', '/routes', false);
       routeReq.send(null);
-      if (routeReq.status < 400) {
+      if (routeReq.status === 200) {
         ref1 = JSON.parse(routeReq.responseText).routes;
         for (key in ref1) {
           route = ref1[key];
@@ -30,13 +30,17 @@
     }
   ]);
 
-  fofApp.filter('curYear', [
-    '$filter', function($filter) {
-      return function() {
-        return $filter('date')(new Date(), 'yyyy');
-      };
-    }
-  ]);
+  fofApp.run(function($rootScope) {
+    return $rootScope.$on("$routeChangeSuccess", function(angularEvent, current, previous) {
+      var ref, ref1;
+      if ((previous != null ? (ref = previous.$$route) != null ? ref.templateUrl : void 0 : void 0) === "partials/spotify.html") {
+        angular.element(document).find("body, .navbar").removeClass("bg-black").removeClass("spotify-nav");
+      }
+      if ((current != null ? (ref1 = current.$$route) != null ? ref1.templateUrl : void 0 : void 0) === "partials/spotify.html") {
+        angular.element(document).find("body, .navbar").addClass("bg-black").addClass("spotify-nav");
+      }
+    });
+  });
 
   fofApp.directive("fofNav", function() {
     return {
@@ -51,5 +55,13 @@
       templateUrl: "partials/footer.html"
     };
   });
+
+  fofApp.filter('curYear', [
+    '$filter', function($filter) {
+      return function() {
+        return $filter('date')(new Date(), 'yyyy');
+      };
+    }
+  ]);
 
 }).call(this);
