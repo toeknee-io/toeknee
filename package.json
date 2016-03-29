@@ -8,15 +8,18 @@
     "restart": "forever restartall"
   },
   "dependencies": {
+    "async": "^2.0.0-rc.2",
     "compression": "^1.0.3",
     "cors": "^2.5.2",
+    "googleapis": "^4.0.0",
     "loopback": "^2.22.0",
     "loopback-boot": "^2.6.5",
     "loopback-component-explorer": "^2.1.0",
     "loopback-component-passport": "^2.1.0",
     "loopback-datasource-juggler": "^2.39.0",
     "pm2": "^1.0.2",
-    "serve-favicon": "^2.0.1"
+    "serve-favicon": "^2.0.1",
+    "socket.io": "^1.4.5"
   },
   "devDependencies": {
     "jshint": "^2.5.6"
